@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://WinScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Paddle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Paddle.gd" type="Script" id=5]
+[ext_resource path="res://Paddle2.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 320.598 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 691.704, 10 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+win_scene = ExtResource( 2 )
+
+[node name="Ball" parent="." instance=ExtResource( 3 )]
+position = Vector2( 503.544, 273.954 )
+speed = 200
+
+[node name="Paddle" parent="." instance=ExtResource( 4 )]
+position = Vector2( 19.9552, 288.498 )
+script = ExtResource( 5 )
+speed = 400
+
+[node name="Paddle2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1006.81, 278.275 )
+script = ExtResource( 6 )
+speed = 400
+
+[node name="Player2Goal" type="Area2D" parent="."]
+position = Vector2( -6.19058, 298.386 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2Goal"]
+shape = SubResource( 1 )
+
+[node name="Player1Goal" type="Area2D" parent="."]
+position = Vector2( 1038.74, 3.91158 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1Goal"]
+position = Vector2( -7.82313, 302.929 )
+shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = 1.21423
+margin_top = -1.61902
+margin_right = 1025.21
+margin_bottom = 598.381
+
+[node name="Container" type="HBoxContainer" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -66.0
+margin_right = 66.0
+margin_bottom = 57.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Container"]
+margin_left = 9.0
+margin_right = 60.0
+margin_bottom = 57.0
+alignment = 1
+
+[node name="Player1Header" type="Label" parent="Control/Container/VBoxContainer"]
+margin_top = 12.0
+margin_right = 51.0
+margin_bottom = 26.0
+text = "Player 1"
+align = 1
+
+[node name="Player1Score" type="Label" parent="Control/Container/VBoxContainer"]
+margin_top = 30.0
+margin_right = 51.0
+margin_bottom = 44.0
+text = "0"
+align = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/Container"]
+margin_left = 64.0
+margin_right = 68.0
+margin_bottom = 57.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/Container"]
+margin_left = 72.0
+margin_right = 123.0
+margin_bottom = 57.0
+alignment = 1
+
+[node name="Player2Header" type="Label" parent="Control/Container/VBoxContainer2"]
+margin_top = 12.0
+margin_right = 51.0
+margin_bottom = 26.0
+text = "Player 2"
+align = 1
+
+[node name="Player2Score" type="Label" parent="Control/Container/VBoxContainer2"]
+margin_top = 30.0
+margin_right = 51.0
+margin_bottom = 44.0
+text = "0"
+align = 1
+
+[node name="Stoppers" type="Node2D" parent="."]
+
+[node name="StopperTop" type="StaticBody2D" parent="Stoppers"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stoppers/StopperTop"]
+position = Vector2( 482.234, -9.92681 )
+shape = SubResource( 2 )
+
+[node name="StopperBottom" type="StaticBody2D" parent="Stoppers"]
+position = Vector2( 0.165344, 620.02 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stoppers/StopperBottom"]
+position = Vector2( 482.234, -9.92681 )
+shape = SubResource( 2 )
+[connection signal="area_entered" from="Player2Goal" to="." method="_on_Player2Goal_area_entered"]
+[connection signal="area_entered" from="Player1Goal" to="." method="_on_Player1Goal_area_entered"]
